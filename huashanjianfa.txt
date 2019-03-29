@@ -3,5 +3,3 @@
 yes
 no
 o yeah!
-
-sss
