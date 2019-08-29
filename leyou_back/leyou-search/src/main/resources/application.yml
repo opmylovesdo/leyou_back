@@ -1,0 +1,27 @@
+server:
+  port: 8083
+spring:
+  application:
+    name: search-service
+  data:
+    elasticsearch:
+      cluster-name: xuecheng
+      cluster-nodes: server:9301
+  jackson:
+    default-property-inclusion: non_null
+  rabbitmq:
+    host: server
+    username: leyou
+    password: leyou
+    virtual-host: /leyou
+    template:
+      exchange: leyou.item.exchange # 配置默认交换机 不配置走rabbit的默认交换机i
+    publisher-confirms: true # 生产者确认机制，确保消息会正确发送，如果发送失败会有错误回执，从而触发重试
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka
+  instance:
+    lease-renewal-interval-in-seconds: 5 # 每隔5秒发送一次心跳
+    lease-expiration-duration-in-seconds: 15 # 10秒不发送就过期

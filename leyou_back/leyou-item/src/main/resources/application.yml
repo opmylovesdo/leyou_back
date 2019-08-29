@@ -1,0 +1,27 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: item-service
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql:///leyou
+  rabbitmq:
+    host: server
+    username: leyou
+    password: leyou
+    virtual-host: /leyou
+    template:
+      exchange: leyou.item.exchange # 配置默认交换机 不配置走rabbit的默认交换机i
+    publisher-confirms: true # 生产者确认机制，确保消息会正确发送，如果发送失败会有错误回执，从而触发重试
+
+eureka:
+  client:
+    service-url:
+      defaultZone: "http://localhost:10086/eureka"
+  instance:
+    lease-expiration-duration-in-seconds: 15 # 服务失效时间，默认值90秒
+    lease-renewal-interval-in-seconds: 5 # 服务续约(renew)的间隔，默认为30秒
+mybatis:
+  type-aliases-package: com.leyou.item.pojo
